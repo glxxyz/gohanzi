@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/glxxyz/hskhsk.com/gohanzi/pages"
-	"github.com/glxxyz/hskhsk.com/gohanzi/repo"
+	"github.com/glxxyz/gohanzi/pages"
+	"github.com/glxxyz/gohanzi/repo"
 	"log"
 	"net/http"
 	"os"

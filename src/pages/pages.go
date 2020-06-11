@@ -1,7 +1,7 @@
 package pages
 
 import (
-	"github.com/glxxyz/hskhsk.com/gohanzi/repo"
+	"github.com/glxxyz/gohanzi/repo"
 	"html/template"
 	"log"
 	"net/http"
@@ -37,6 +37,18 @@ func formValueInt(request *http.Request, key string, defaultValue int) int {
 		panic(err)
 	}
 	return parsed
+}
+
+func formValueInt8(request *http.Request, key string, defaultValue int8) int8 {
+	value := request.FormValue(key)
+	if value == "" {
+		return defaultValue
+	}
+	parsed, err := strconv.Atoi(value)
+	if err != nil {
+		panic(err)
+	}
+	return int8(parsed)
 }
 
 func dictionaryLink(hanzi string) string {

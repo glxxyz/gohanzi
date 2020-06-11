@@ -2,7 +2,7 @@ package pages
 
 import (
 	"fmt"
-	"github.com/glxxyz/hskhsk.com/gohanzi/repo"
+	"github.com/glxxyz/gohanzi/repo"
 	"html/template"
 	"net/http"
 	"strconv"
@@ -12,7 +12,7 @@ import (
 
 type HomophonesParams struct {
 	Expand     bool
-	NumChars   int
+	NumChars   int8
 	MatchTones bool
 	HskOnly    bool
 	Homophones []repo.Homophone
@@ -21,7 +21,7 @@ type HomophonesParams struct {
 func HomophonesHandler(response http.ResponseWriter, request *http.Request, start time.Time) {
 	params := HomophonesParams{
 		Expand:     request.FormValue("Expand") == "yes",
-		NumChars:   formValueInt(request, "chars", 2),
+		NumChars:   formValueInt8(request, "chars", 2),
 		MatchTones: request.FormValue("tones") == "yes",
 		HskOnly:    request.FormValue("hsk") == "yes",
 	}
@@ -44,7 +44,8 @@ func homophonesLink(params HomophonesParams) func(change string) string {
 		matchTones := params.MatchTones
 		switch change {
 		case "1", "2", "3", "4", "5", "6", "7", "8", "9":
-			numChars, _ = strconv.Atoi(change)
+			numCharsInt, _ := strconv.Atoi(change)
+			numChars = int8(numCharsInt)
 		case "invertExpand":
 			expand = !expand
 		case "invertTones":

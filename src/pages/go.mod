@@ -1,11 +1,13 @@
-module github.com/glxxyz/hskhsk.com/gohanzi/pages
+module github.com/glxxyz/gohanzi/pages
 
 go 1.14
 
 replace (
-	github.com/glxxyz/hskhsk.com/gohanzi/repo v0.0.0 => ../repo
+	github.com/glxxyz/gohanzi/containers v0.0.0 => ../containers
+	github.com/glxxyz/gohanzi/repo v0.0.0 => ../repo
 )
 
 require (
-	github.com/glxxyz/hskhsk.com/gohanzi/repo v0.0.0
+	github.com/glxxyz/gohanzi/containers v0.0.0
+	github.com/glxxyz/gohanzi/repo v0.0.0
 )

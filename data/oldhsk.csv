@@ -881,7 +881,7 @@ _极了,_jíle,_ji2le,1
 一下儿,yíxiàr,yi2xia4r,1
 一样,yíyàng,yi2yang4,1
 一般,yìbān,yi4ban1,1
-一边_一边,yìbiān_4biān_,yi4bian1_4bian1_,1
+一边_一边,yìbiān_yìbiān_,yi4bian1_yi4bian1_,1
 一点儿,yìdiǎnr,yi4dian3r,1
 一起,yìqǐ,yi4qi3,1
 一些,yìxiē,yi4xie1,1
@@ -1264,7 +1264,8 @@ _之间,_zhījiān,_zhi1jian1,1
 此外,cǐwài,ci3wai4,2
 刺,cì,ci4,2
 聪明,cōngming,cong1ming,2
-从不/没,cóngbù/méi,cong2bu4/mei2,2
+从不,cóngbù,cong2bu4,2
+从没,cóngméi,cong2mei2,2
 从_出发,cóng_chūfā,cong2_chu1fa1,2
 从此,cóngcǐ,cong2ci3,2
 从而,cóng'ér,cong2'er2,2
@@ -1601,7 +1602,7 @@ _的话_,_dehuà_,_dehua4_,2
 观点,guāndiǎn,guan1dian3,2
 观众,guānzhòng,guan1zhong4,2
 管,guǎn,guan3,2
-管理,guǎnlǐ,guan3li3,0
+管理,guǎnlǐ,guan3li3,1
 冠军,guànjūn,guan4jun1,2
 罐头,guàntou,guan4tou,2
 贯彻,Guànchè,Guan4che4,2
@@ -4237,7 +4238,7 @@ _的话_,_dehuà_,_dehua4_,2
 怒,nù,nu4,3
 女子,nǚzǐ,nv3zi3,3
 噢,ō,o1,3
- 哦,ò,o4,3
+哦,ò,o4,3
 偶尔,ǒu'ěr,ou3'er3,3
 偶然,ǒurán,ou3ran2,3
 趴,pā,pa1,3

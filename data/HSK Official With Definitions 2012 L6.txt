@@ -108,7 +108,7 @@
 贬低	貶低	bian3di1	biǎndī	to belittle; depreciate; disparage
 贬义	貶義	bian3yi4	biǎnyì	negative connotation; derogatory sense
 扁	扁	bian3	biǎn	flat
-变故	變故	biang4u4	biàngù	unforeseen event; accident
+变故	變故	bian4gu4	biàngù	unforeseen event; accident
 变迁	變遷	bian4qian1	biànqiān	changes; vicissitude
 变质	變質	bian4 zhi4	biàn zhì	go bad; deteriorate; metamorphism
 便利	便利	bian4li4	biànlì	convenient; easy; facilitate
@@ -129,7 +129,7 @@
 憋	憋	bie1	biē	hold in (urine); hold (breath); choke
 别墅	別墅	bie2shu4	biéshù	villa
 别致	別致	bie2zhi4	biézhì	unique; unconventional; fancy
-别扭	別扭	bien4iu	bièniu	awkward; unnatural
+别扭	別扭	bie4niu	bièniu	awkward; unnatural
 濒临	瀕臨	bin1lin2	bīnlín	on the verge of
 冰雹	冰雹	bing1bao2	bīngbáo	hail
 丙	丙	bing3	bǐng	bright; fire (3rd Heavenly Stem)
@@ -888,7 +888,7 @@
 尖端	尖端	jian1duan1	jiānduān	highest peak; the tip; sharp pointed end; most advanced and sophisticated
 尖锐	尖銳	jian1rui4	jiānruì	sharp; intense; penetrating
 坚定	堅定	jian1ding4	jiāndìng	firm; staunch; resolute
-坚固	堅固	jiang1u4	jiāngù	firm; strong; sturdy
+坚固	堅固	jian1gu4	jiāngù	firm; strong; sturdy
 坚韧	堅韌	jian1ren4	jiānrèn	tough and durable; hard-bitten; firm and tenacious
 坚实	堅實	jian1shi2	jiānshí	firm and substantial; solid
 坚硬	堅硬	jian1ying4	jiānyìng	hard; solid
@@ -1703,7 +1703,7 @@
 爽快	爽快	shuang3kuai4	shuǎngkuài	refreshed; rejuvenated; frank
 水利	水利	shui3li4	shuǐlì	water conservancy; irrigation works
 水龙头	水龍頭	shui3long2tou2	shuǐlóngtóu	faucet; tap
-水泥	水泥	shuin3i2	shuǐní	cement
+水泥	水泥	shui3ni2	shuǐní	cement
 瞬间	瞬間	shun4jian1	shùnjiān	in the twinkling of an eye; in an instant; momentary
 司法	司法	si1fa3	sīfǎ	judicial; (administration of) justice
 司令	司令	si1ling4	sīlìng	commanding officer
@@ -1806,7 +1806,7 @@
 同志	同志	tong2zhi4	tóngzhì	comrade; gay (slang)
 铜	銅	tong2	tóng	copper
 童话	童話	tong2hua4	tónghuà	fairy tale
-统筹兼顾	統籌兼顧	tong3chou2jiang1u4	tǒngchóujiāngù	take every aspects into consideration through plan and preparation
+统筹兼顾	統籌兼顧	tong3chou2jian1gu4	tǒngchóujiāngù	take every aspects into consideration through plan and preparation
 统计	統計	tong3ji4	tǒngjì	statistics; to tally; to add up
 统统	統統	tong3tong3	tǒngtǒng	totally; completely
 统治	統治	tong3zhi4	tǒngzhì	to rule (a country); govern; governance
@@ -1854,7 +1854,7 @@
 完毕	完畢	wan2bi4	wánbì	finish; end; complete
 玩弄	玩弄	wan2nong4	wánnòng	resort to; play with; engage in
 玩意儿	玩意兒	wan2yi4r	wányìr	thing; toy; gadget
-顽固	頑固	wang2u4	wángù	stubborn; obstinate
+顽固	頑固	wan2gu4	wángù	stubborn; obstinate
 顽强	頑強	wan2qiang2	wánqiáng	tenacious; hard to defeat
 挽回	挽回	wan3hui2	wǎnhuí	reverse or salvage (a situation); redeem; retrieve
 挽救	挽救	wan3jiu4	wǎnjiù	to rescue; retrieve; to remedy
@@ -2225,7 +2225,7 @@
 原始	原始	yuan2shi3	yuánshǐ	first; original; primitive
 原先	原先	yuan2xian1	yuánxiān	former; original
 圆满	圓滿	yuan2man3	yuánmǎn	satisfactory
-缘故	緣故	yuang2u4	yuángù	reason; cause
+缘故	緣故	yuan2gu4	yuángù	reason; cause
 源泉	源泉	yuan2quan2	yuánquán	headspring; fountainhead; water source
 约束	約束	yue1shu4	yuēshù	restrict; limit to; constrain; restriction
 乐谱	樂譜	yue4pu3	yuèpǔ	sheet music
@@ -2294,7 +2294,7 @@
 折	折	zhe2	zhé	to break; to fracture; convert into; to fold
 折磨	折磨	zhe2mo	zhémo	persecute; to torture
 侦探	偵探	zhen1tan4	zhēntàn	detective
-珍贵	珍貴	zheng1ui4	zhēnguì	precious
+珍贵	珍貴	zhen1gui4	zhēnguì	precious
 珍稀	珍稀	zhen1xi1	zhēnxī	rare; precious and uncommon
 珍珠	珍珠	zhen1zhu1	zhēnzhū	pearl
 真理	真理	zhen1li3	zhēnlǐ	truth

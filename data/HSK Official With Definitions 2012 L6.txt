@@ -969,7 +969,7 @@
 紧迫	緊迫	jin3po4	jǐnpò	urgent; urgency
 锦上添花	錦上添花	jin3shang4tian1hua1	jǐnshàngtiānhuā	lit. on brocade, add flowers (idiom); to decorate sth already perfect / gilding the lily
 进而	進而	jin4'er2	jìn'ér	and then (what follows next)
-进攻	進攻	jing4ong1	jìngōng	attack (military); assault
+进攻	進攻	jin4gong1	jìngōng	attack (military); assault
 进化	進化	jin4hua4	jìnhuà	evolution
 进展	進展	jin4zhan3	jìnzhǎn	make progress; development; make headway
 近来	近來	jin4lai2	jìnlái	recently; lately
@@ -1520,7 +1520,7 @@
 热门	熱門	re4men2	rèmén	in demand; popular; in vogue
 人道	人道	ren2dao4	réndào	humanitarianism; humane
 人格	人格	reng2e2	réngé	personality; moral integrity; character
-人工	人工	reng2ong1	réngōng	man-made; manpower; manual work
+人工	人工	ren2gong1	réngōng	man-made; manpower; manual work
 人家	人家	ren2jia1	rénjiā	other people; others; they; I; family; household
 人间	人間	ren2jian1	rénjiān	man's world; the world
 人士	人士	ren2shi4	rénshì	person; public figure
@@ -2220,7 +2220,7 @@
 元素	元素	yuan2su4	yuánsù	element; element of a set; chemical element
 元宵节	元宵節	Yuan2xiao1 Jie2	Yuánxiāo Jié	the Lantern Festival
 园林	園林	yuan2lin2	yuánlín	gardens; park; landscape
-原告	原告	yuang2ao4	yuángào	plaintiff; complainant; accuser
+原告	原告	yuan2gao4	yuángào	plaintiff; complainant; accuser
 原理	原理	yuan2li3	yuánlǐ	principle; theory
 原始	原始	yuan2shi3	yuánshǐ	first; original; primitive
 原先	原先	yuan2xian1	yuánxiān	former; original

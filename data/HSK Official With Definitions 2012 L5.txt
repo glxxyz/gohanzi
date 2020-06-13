@@ -292,7 +292,7 @@
 服装	服裝	fu2zhuang1	fúzhuāng	(formal) clothing; costume; dress
 幅	幅	fu2	fú	width of cloth; size; (mw for pictures, paintings, textiles)
 辅导	輔導	fu3dao3	fǔdǎo	to coach; to tutor; give advice (in study)
-妇女	婦女	fun4ü3	fùnǚ	woman; women in general
+妇女	婦女	fu4nü3	fùnǚ	woman; women in general
 复制	複制	fu4zhi4	fùzhì	duplicate; reproduce
 改革	改革	gai3ge2	gǎigé	to reform
 改进	改進	gai3jin4	gǎijìn	improve; make better
@@ -317,7 +317,7 @@
 格外	格外	ge2wai4	géwài	especially; additionally
 隔壁	隔壁	ge2bi4	gébì	next door
 个别	個別	ge4bie2	gèbié	individual; specific; isolated; very few
-个人	個人	ger4en2	gèrén	individual; personal; oneself
+个人	個人	ge4ren2	gèrén	individual; personal; oneself
 个性	個性	ge4xing4	gèxìng	individuality; personality
 各自	各自	ge4zi4	gèzì	each; respective; apiece
 根	根	gen1	gēn	root; base; (mw for long, slender objects)
@@ -769,7 +769,7 @@
 劝	勸	quan4	quàn	advise; to urge; persuade
 缺乏	缺乏	que1fa2	quēfá	shortage; to lack; be short of
 确定	確定	que4ding4	quèdìng	definite; certain; fixed; determine
-确认	確認	quer4en4	quèrèn	confirm; confirmation; verify
+确认	確認	que4ren4	quèrèn	confirm; confirmation; verify
 群	群	qun2	qún	crowd; group; (mw for groups, flocks, or swarms)
 燃烧	燃燒	ran2shao1	ránshāo	combustion; burn; kindle
 绕	繞	rao4	rào	to wind; to coil; move round
@@ -1155,7 +1155,7 @@
 预订	預訂	yu4ding4	yùdìng	place an order; book ahead; subscribe for
 预防	預防	yu4fang2	yùfáng	prevent; take precautions against
 元旦	元旦	yuan2dan4	yuándàn	New Year's Day
-员工	員工	yuang2ong1	yuángōng	employee; staff; personnel
+员工	員工	yuan2gong1	yuángōng	employee; staff; personnel
 原料	原料	yuan2liao4	yuánliào	raw material; ingredients
 原则	原則	yuan2ze2	yuánzé	principle; doctrine
 圆	圓	yuan2	yuán	round; circular; formal unit of Chinese currency

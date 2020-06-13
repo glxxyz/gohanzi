@@ -12,10 +12,10 @@ import (
 var HskWords = map[containers.HskVersion]map[containers.HskLevel]containers.StringEntryMap{}
 var HskChars = map[containers.HskVersion]map[containers.HskLevel]containers.CharEntryMap{}
 
-var Hsk1992 containers.HskVersion = 92
-var Hsk2010 containers.HskVersion = 10
-var Hsk2012 containers.HskVersion = 12
-var Hsk2020 containers.HskVersion = 20
+const Hsk1992 containers.HskVersion = 92
+const Hsk2010 containers.HskVersion = 10
+const Hsk2012 containers.HskVersion = 12
+const Hsk2020 containers.HskVersion = 20
 
 var HskVersionToLevels  = map[containers.HskVersion]containers.HskLevel{
 	Hsk1992: 4,
@@ -64,23 +64,9 @@ func parseHsk2012File(hskWords containers.StringEntryMap, hskChars containers.Ch
 		}
 		traditional := each[1]
 		pinyinNum := each[2]
-		if strings.Contains(pinyinNum, "ü") {
-			pinyinNum = strings.Replace(pinyinNum, "ü", "v", -1)
-		}
 		// pinyinTones := each[3]
 		definition := each[4]
-		simplifiedChars := []rune(simplified)
-		traditionalChars := []rune(traditional)
-		pinyinSyllables := pinyinToSyllables(pinyinNum)
-		for index, char := range simplifiedChars {
-			entry := addOrUpdateEntry(string(char), string(traditionalChars[index]), pinyinSyllables[index], "")
-			entry.SetHskCharLevel(Hsk2012, hskLevel)
-			hskChars[char] = entry
-		}
-		cleanPinyin := strings.Join(pinyinSyllables, " ")
-		entry := addOrUpdateEntry(simplified, traditional, cleanPinyin, definition)
-		entry.SetHskWordLevel(Hsk2012, hskLevel)
-		hskWords[simplified] = entry
+		processHskEntry(hskWords, hskChars, Hsk2012, hskLevel, simplified, traditional, pinyinNum, definition)
 	}
 }
 
@@ -106,25 +92,53 @@ func parseHsk2010File(fileName string) (containers.StringEntryMap, containers.Ch
 		if strings.Contains(levelStr, "\uFEFF") {
 			levelStr = strings.Replace(levelStr, "\uFEFF", "", -1)
 		}
-		levelInt, err := strconv.Atoi(levelStr); if err != nil {
+		levelInt, err := strconv.Atoi(levelStr)
+		if err != nil {
 			panic(err)
 		}
 		hskLevel := containers.HskLevel(levelInt)
 		simplified := each[1]
 		pinyinNum := each[2]
-		pinyinSyllables := pinyinToSyllables(pinyinNum)
-		simplifiedChars := []rune(simplified)
-		for index, char := range simplifiedChars {
-			entry := addOrUpdateEntry(string(char), "", pinyinSyllables[index], "")
-			entry.SetHskCharLevel(Hsk2010, hskLevel)
-			hskChars[char] = entry
-		}
-		entry := addOrUpdateEntry(simplified, "", pinyinNum, "")
-		entry.SetHskWordLevel(Hsk2010, hskLevel)
-		hskWords[simplified] = entry
+		processHskEntry(hskWords, hskChars, Hsk2010, hskLevel, simplified, "", pinyinNum, "")
 	}
 
 	return hskWords, hskChars
+}
+
+func processHskEntry(
+  hskWords containers.StringEntryMap,
+  hskChars containers.CharEntryMap,
+  hskVersion containers.HskVersion,
+  hskLevel containers.HskLevel,
+  simplified string,
+  traditional string,
+  pinyinNum string,
+  definition string) {
+
+	simplifiedChars := []rune(simplified)
+	traditionalChars := []rune(traditional)
+	traditionalValidate := traditional
+	if traditionalValidate == "" {
+		traditionalValidate = simplified
+	}
+	pinyinVariants := strings.Split(pinyinNum, ",")
+	for _, pinyin := range pinyinVariants {
+		syllables, cleanPinyin := parsePinyinNumTones(pinyin)
+		validateEntry(simplified, traditionalValidate, syllables, pinyin)
+		for index, char := range simplifiedChars {
+			var entry *containers.Entry
+			if traditional == "" {
+				entry = addOrUpdateEntry(string(char), "", syllables[index], "", false)
+			} else {
+				entry = addOrUpdateEntry(string(char), string(traditionalChars[index]), syllables[index], "", false)
+			}
+			entry.SetHskCharLevel(hskVersion, hskLevel)
+			hskChars[char] = entry
+		}
+		entry := addOrUpdateEntry(simplified, traditional, cleanPinyin, definition, true)
+		entry.SetHskWordLevel(hskVersion, hskLevel)
+		hskWords[simplified] = entry
+	}
 }
 
 func parseHsk1992File(fileName string) (containers.StringEntryMap, containers.CharEntryMap) {
@@ -145,7 +159,8 @@ func parseHsk1992File(fileName string) (containers.StringEntryMap, containers.Ch
 	}
 
 	for _, each := range csvData {
-		levelInt, err := strconv.Atoi(each[3]); if err != nil {
+		levelInt, err := strconv.Atoi(each[3])
+		if err != nil {
 			panic(err)
 		}
 		hskLevel := containers.HskLevel(levelInt)
@@ -157,16 +172,7 @@ func parseHsk1992File(fileName string) (containers.StringEntryMap, containers.Ch
 			simplified = strings.Replace(simplified, "_", "", -1)
 		}
 		pinyinNum := each[2]
-		pinyinSyllables := pinyinToSyllables(pinyinNum)
-		simplifiedChars := []rune(simplified)
-		for index, char := range simplifiedChars {
-			entry := addOrUpdateEntry(string(char), "", pinyinSyllables[index], "")
-			entry.SetHskCharLevel(Hsk1992, hskLevel)
-			hskChars[char] = entry
-		}
-		entry := addOrUpdateEntry(simplified, "", pinyinNum, "")
-		entry.SetHskWordLevel(Hsk1992, hskLevel)
-		hskWords[simplified] = entry
+		processHskEntry(hskWords, hskChars, Hsk1992, hskLevel, simplified, "", pinyinNum, "")
 	}
 
 	return hskWords, hskChars

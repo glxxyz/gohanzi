@@ -18,7 +18,7 @@ func BuildHomophones(numChars int8, matchTones bool, hskOnly bool) []Homophone {
 	if matchTones {
 		homophoneIndexMap = TonedPinyinHomophones
 	}
-	homophoneIndex, found := homophoneIndexMap[numChars]; if found {
+	if homophoneIndex, found := homophoneIndexMap[numChars]; found {
 		return homophonesFromMap(homophoneIndex, hskOnly)
 	}
 	return []Homophone{}

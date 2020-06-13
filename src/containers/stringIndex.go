@@ -3,18 +3,22 @@ package containers
 type StringIndex map[string]EntrySet
 
 func (index StringIndex) Add(word string, entry *Entry) {
-	set, found := index[word]; if found {
+	if set, found := index[word]; found {
 		set[entry] = exists
+		return
 	}
-	set = EntrySet{}
-	index[word] = set
-	set[entry] = exists
+	index[word] = EntrySet{entry: exists}
 }
 
 func (index StringIndex) AddAll(other StringIndex) {
 	for word, set := range other {
+		thisSet, found := index[word]
+		if !found {
+			thisSet = EntrySet{}
+			index[word] = thisSet
+		}
 		for entry, _ := range set {
-			index.Add(word, entry)
+			thisSet[entry] = exists
 		}
 	}
 }

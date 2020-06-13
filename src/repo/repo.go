@@ -28,9 +28,10 @@ func EnsureResourcesLoaded() {
 	// parseMandarinCompanionFiles(dataDir)
 	// parseWordFrequencyFile(dataDir)
 	// parseCharFrequencyFile(dataDir)
-	// parseCeDict(dataDir)
+	parseCcCeDict(dataDir)
 	// parseCharacterCompositionFile(dataDir)
 	// initRadical_Data()
 	initDone = true
 	log.Print("Resources loaded")
 }
+

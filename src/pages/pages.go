@@ -23,7 +23,7 @@ func executeTemplate(response http.ResponseWriter, start time.Time, name string,
 		return time.Now().Sub(start).Seconds()
 	}
 	tmpl := template.New(name).Funcs(funcs)
-	template.Must(tmpl.ParseFiles("templates/banner.gohtml", "templates/header.gohtml", "templates/footer.gohtml", "templates/" + name))
+	template.Must(tmpl.ParseFiles("templates/banner.gohtml", "templates/header.gohtml", "templates/footer.gohtml", "templates/"+name))
 	return tmpl.Execute(response, params)
 }
 

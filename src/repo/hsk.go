@@ -3,6 +3,7 @@ package repo
 import (
 	"encoding/csv"
 	"github.com/glxxyz/gohanzi/containers"
+	"log"
 	"os"
 	"path"
 	"strconv"
@@ -17,7 +18,7 @@ const Hsk2010 containers.HskVersion = 10
 const Hsk2012 containers.HskVersion = 12
 const Hsk2020 containers.HskVersion = 20
 
-var HskVersionToLevels  = map[containers.HskVersion]containers.HskLevel{
+var HskVersionToLevels = map[containers.HskVersion]containers.HskLevel{
 	Hsk1992: 4,
 	Hsk2010: 6,
 	Hsk2012: 6,
@@ -25,55 +26,103 @@ var HskVersionToLevels  = map[containers.HskVersion]containers.HskLevel{
 }
 
 func parseHskFiles(dataDir string) {
-	hsk2012Words := containers.StringEntryMap{}
-	hsk2012Chars := containers.CharEntryMap{}
-	parseHsk2012File(hsk2012Words, hsk2012Chars, path.Join(dataDir, "HSK Official With Definitions 2012 L1.txt"), 1)
-	parseHsk2012File(hsk2012Words, hsk2012Chars, path.Join(dataDir, "HSK Official With Definitions 2012 L2.txt"), 2)
-	parseHsk2012File(hsk2012Words, hsk2012Chars, path.Join(dataDir, "HSK Official With Definitions 2012 L3.txt"), 3)
-	parseHsk2012File(hsk2012Words, hsk2012Chars, path.Join(dataDir, "HSK Official With Definitions 2012 L4.txt"), 4)
-	parseHsk2012File(hsk2012Words, hsk2012Chars, path.Join(dataDir, "HSK Official With Definitions 2012 L5.txt"), 5)
-	parseHsk2012File(hsk2012Words, hsk2012Chars, path.Join(dataDir, "HSK Official With Definitions 2012 L6.txt"), 6)
-	buildHskLevelToLists(hsk2012Words, hsk2012Chars, Hsk2012)
-
-	hsk2010Words, hsk2010Chars := parseHsk2010File(path.Join(dataDir, "New_HSK_2010.csv"))
-	buildHskLevelToLists(hsk2010Words, hsk2010Chars, Hsk2010)
-
-	hsk1992Words, hsk1992Chars := parseHsk1992File(path.Join(dataDir, "oldhsk.csv"))
-	buildHskLevelToLists(hsk1992Words, hsk1992Chars, Hsk1992)
+	parseHskVersionFiles(dataDir, Hsk1992, ',', extractHsk1992, "oldhsk.csv")
+	parseHskVersionFiles(dataDir, Hsk2010, ',', extractHsk2010, "New_HSK_2010.csv")
+	processHsk2012(dataDir)
+	parseHskVersionFiles(dataDir, Hsk2020, ',', extractHsk2020, "2020_vocab_list.csv")
 }
 
-func parseHsk2012File(hskWords containers.StringEntryMap, hskChars containers.CharEntryMap, fileName string, hskLevel containers.HskLevel) {
-	csvFile, err := os.Open(fileName)
+func processHsk2012(dataDir string) {
+	hskWords, hskChars := containers.StringEntryMap{}, containers.CharEntryMap{}
+	parseHskFile(hskWords, hskChars, path.Join(dataDir, "HSK Official With Definitions 2012 L1.txt"), Hsk2012, '\t', genExtractHsk2012(1))
+	parseHskFile(hskWords, hskChars, path.Join(dataDir, "HSK Official With Definitions 2012 L2.txt"), Hsk2012, '\t', genExtractHsk2012(2))
+	parseHskFile(hskWords, hskChars, path.Join(dataDir, "HSK Official With Definitions 2012 L3.txt"), Hsk2012, '\t', genExtractHsk2012(3))
+	parseHskFile(hskWords, hskChars, path.Join(dataDir, "HSK Official With Definitions 2012 L4.txt"), Hsk2012, '\t', genExtractHsk2012(4))
+	parseHskFile(hskWords, hskChars, path.Join(dataDir, "HSK Official With Definitions 2012 L5.txt"), Hsk2012, '\t', genExtractHsk2012(5))
+	parseHskFile(hskWords, hskChars, path.Join(dataDir, "HSK Official With Definitions 2012 L6.txt"), Hsk2012, '\t', genExtractHsk2012(6))
+	buildHskLevelToLists(hskWords, hskChars, Hsk2012)
+}
+
+func extractHsk1992(fields []string) (containers.HskLevel, string, string, string, string) {
+	levelInt, err := strconv.Atoi(fields[3])
 	if err != nil {
 		panic(err)
 	}
-	defer csvFile.Close()
+	hskLevel := containers.HskLevel(levelInt)
+	simplified := fields[0]
+	if strings.Contains(simplified, "_") {
+		simplified = strings.Replace(simplified, "_", "", -1)
+	}
+	pinyinNum := fields[2]
+	return hskLevel, simplified, "", pinyinNum, ""
+}
 
-	reader := csv.NewReader(csvFile)
-	reader.Comma = '\t'
-	reader.FieldsPerRecord = -1
-	csvData, err := reader.ReadAll()
+func extractHsk2010(fields []string) (containers.HskLevel, string, string, string, string) {
+	levelStr := fields[0]
+	levelInt, err := strconv.Atoi(levelStr)
 	if err != nil {
 		panic(err)
 	}
+	hskLevel := containers.HskLevel(levelInt)
+	simplified := fields[1]
+	pinyinNum := fields[2]
+	return hskLevel, simplified, "", pinyinNum, ""
+}
 
-	for _, each := range csvData {
-		simplified := each[0]
-		if strings.Contains(simplified, "\uFEFF") {
-			simplified = strings.Replace(simplified, "\uFEFF", "", -1)
-		}
-		traditional := each[1]
-		pinyinNum := each[2]
+func genExtractHsk2012(hskLevel containers.HskLevel) func (fields []string) (
+  hskLevel containers.HskLevel, simplified string, traditional string, pinyinNum string, definition string) {
+	return func(fields []string) (containers.HskLevel, string, string, string, string) {
+		simplified := fields[0]
+		traditional := fields[1]
+		pinyinNum := fields[2]
 		// pinyinTones := each[3]
-		definition := each[4]
-		processHskEntry(hskWords, hskChars, Hsk2012, hskLevel, simplified, traditional, pinyinNum, definition)
+		definition := fields[4]
+		return hskLevel, simplified, traditional, pinyinNum, definition
 	}
 }
 
-func parseHsk2010File(fileName string) (containers.StringEntryMap, containers.CharEntryMap) {
-	hskWords := containers.StringEntryMap{}
-	hskChars := containers.CharEntryMap{}
+func extractHsk2020(fields []string) (containers.HskLevel, string, string, string, string) {
+	variants := strings.Split(fields[0], "丨")
+	simplified := variants[0] // a few fields had shorter variants after the pipe
+	var hskLevel containers.HskLevel
+	switch fields[1] {
+	case "elementary":
+		hskLevel = 1
+	case "intermediate":
+		hskLevel = 2
+	case "advanced":
+		hskLevel = 3
+	case "extra":
+		hskLevel = 4
+	default:
+		log.Panicf("Unknown HSK 2020 level: %v", fields[1])
+	}
+	return hskLevel, simplified, "", "", ""
+}
 
+func parseHskVersionFiles(
+	dataDir string,
+	version containers.HskVersion,
+	separator rune,
+	processFields func (fields []string) (hskLevel containers.HskLevel, simplified string, traditional string, pinyinNum string, definition string),
+	fileNames ...string) {
+
+	hskWords, hskChars := containers.StringEntryMap{}, containers.CharEntryMap{}
+	for _, fileName := range fileNames {
+		parseHskFile(hskWords, hskChars, path.Join(dataDir, fileName), version, separator, processFields)
+	}
+	buildHskLevelToLists(hskWords, hskChars, version)
+}
+
+
+
+func parseHskFile(
+  hskWords containers.StringEntryMap,
+  hskChars containers.CharEntryMap,
+  fileName string,
+  version containers.HskVersion,
+  separator rune,
+  processFields func (fields []string) (hskLevel containers.HskLevel, simplified string, traditional string, pinyinNum string, definition string)) {
 	csvFile, err := os.Open(fileName)
 	if err != nil {
 		panic(err)
@@ -81,6 +130,7 @@ func parseHsk2010File(fileName string) (containers.StringEntryMap, containers.Ch
 	defer csvFile.Close()
 
 	reader := csv.NewReader(csvFile)
+	reader.Comma = separator
 	reader.FieldsPerRecord = -1
 	csvData, err := reader.ReadAll()
 	if err != nil {
@@ -88,21 +138,12 @@ func parseHsk2010File(fileName string) (containers.StringEntryMap, containers.Ch
 	}
 
 	for _, each := range csvData {
-		levelStr := each[0]
-		if strings.Contains(levelStr, "\uFEFF") {
-			levelStr = strings.Replace(levelStr, "\uFEFF", "", -1)
+		if strings.Contains(each[0], "\uFEFF") {
+			each[0] = strings.Replace(each[0], "\uFEFF", "", -1)
 		}
-		levelInt, err := strconv.Atoi(levelStr)
-		if err != nil {
-			panic(err)
-		}
-		hskLevel := containers.HskLevel(levelInt)
-		simplified := each[1]
-		pinyinNum := each[2]
-		processHskEntry(hskWords, hskChars, Hsk2010, hskLevel, simplified, "", pinyinNum, "")
+		hskLevel, simplified, traditional, pinyinNum, definition := processFields(each)
+		processHskEntry(hskWords, hskChars, version, hskLevel, simplified, traditional, pinyinNum, definition)
 	}
-
-	return hskWords, hskChars
 }
 
 func processHskEntry(
@@ -126,11 +167,15 @@ func processHskEntry(
 		syllables, cleanPinyin := parsePinyinNumTones(pinyin)
 		validateEntry(simplified, traditionalValidate, syllables, pinyin)
 		for index, char := range simplifiedChars {
+			var pinyinSyllable = ""
+			if len(syllables) > 0 {
+				pinyinSyllable = syllables[index]
+			}
 			var entry *containers.Entry
 			if traditional == "" {
-				entry = addOrUpdateEntry(string(char), "", syllables[index], "", false)
+				entry = addOrUpdateEntry(string(char), "", pinyinSyllable, "", false)
 			} else {
-				entry = addOrUpdateEntry(string(char), string(traditionalChars[index]), syllables[index], "", false)
+				entry = addOrUpdateEntry(string(char), string(traditionalChars[index]), pinyinSyllable, "", false)
 			}
 			entry.SetHskCharLevel(hskVersion, hskLevel)
 			hskChars[char] = entry
@@ -141,48 +186,11 @@ func processHskEntry(
 	}
 }
 
-func parseHsk1992File(fileName string) (containers.StringEntryMap, containers.CharEntryMap) {
-	hskWords := containers.StringEntryMap{}
-	hskChars := containers.CharEntryMap{}
-
-	csvFile, err := os.Open(fileName)
-	if err != nil {
-		panic(err)
-	}
-	defer csvFile.Close()
-
-	reader := csv.NewReader(csvFile)
-	reader.FieldsPerRecord = -1
-	csvData, err := reader.ReadAll()
-	if err != nil {
-		panic(err)
-	}
-
-	for _, each := range csvData {
-		levelInt, err := strconv.Atoi(each[3])
-		if err != nil {
-			panic(err)
-		}
-		hskLevel := containers.HskLevel(levelInt)
-		simplified := each[0]
-		if strings.Contains(simplified, "\uFEFF") {
-			simplified = strings.Replace(simplified, "\uFEFF", "", -1)
-		}
-		if strings.Contains(simplified, "_") {
-			simplified = strings.Replace(simplified, "_", "", -1)
-		}
-		pinyinNum := each[2]
-		processHskEntry(hskWords, hskChars, Hsk1992, hskLevel, simplified, "", pinyinNum, "")
-	}
-
-	return hskWords, hskChars
-}
-
-func buildHskLevelToLists(hskWords containers.StringEntryMap, hskChars containers.CharEntryMap,	hskVersion containers.HskVersion) {
+func buildHskLevelToLists(hskWords containers.StringEntryMap, hskChars containers.CharEntryMap, hskVersion containers.HskVersion) {
 	levelToWords := map[containers.HskLevel]containers.StringEntryMap{}
 	levelToChars := map[containers.HskLevel]containers.CharEntryMap{}
 
-	for i :=containers.HskLevel(1); i<=HskVersionToLevels[hskVersion]; i++ {
+	for i := containers.HskLevel(1); i <= HskVersionToLevels[hskVersion]; i++ {
 		levelToWords[i] = containers.StringEntryMap{}
 		levelToChars[i] = containers.CharEntryMap{}
 	}
@@ -202,18 +210,18 @@ func buildHskLevelToLists(hskWords containers.StringEntryMap, hskChars container
 
 	// I don't think this is still needed- leave it out for now
 	/*
-	for i:=containers.HskLevel(1); i<=HskVersionToLevels[hskVersion]-1; i++ {
-		for j := i + 1; j <= HskVersionToLevels[hskVersion]; j++ {
-			index := i * 10 + j
-			levelToWords[index] = containers.StringEntryMap{}
-			levelToChars[index] = containers.CharEntryMap{}
-			for k := i; k <= j; k++ {
-				levelToWords[index].AddAll(levelToWords[k])
-				levelToChars[index].AddAll(levelToChars[k])
+		for i:=containers.HskLevel(1); i<=HskVersionToLevels[hskVersion]-1; i++ {
+			for j := i + 1; j <= HskVersionToLevels[hskVersion]; j++ {
+				index := i * 10 + j
+				levelToWords[index] = containers.StringEntryMap{}
+				levelToChars[index] = containers.CharEntryMap{}
+				for k := i; k <= j; k++ {
+					levelToWords[index].AddAll(levelToWords[k])
+					levelToChars[index].AddAll(levelToChars[k])
+				}
 			}
 		}
-	}
-	 */
+	*/
 
 	HskWords[hskVersion] = levelToWords
 	HskChars[hskVersion] = levelToChars

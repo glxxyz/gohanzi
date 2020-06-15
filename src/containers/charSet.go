@@ -59,4 +59,3 @@ func (set CharSet) AddAll(other CharSet) {
 		set[key] = exists
 	}
 }
-

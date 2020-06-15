@@ -8,9 +8,9 @@ type Homophone struct {
 }
 
 type HomophoneMember struct {
-	Hanzi          string
-	HskLevel       containers.HskLevel
-	Definition     string
+	Hanzi      string
+	HskLevel   containers.HskLevel
+	Definition string
 }
 
 func BuildHomophones(numChars int8, matchTones bool, hskOnly bool) []Homophone {

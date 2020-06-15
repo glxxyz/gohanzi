@@ -34,4 +34,3 @@ func EnsureResourcesLoaded() {
 	initDone = true
 	log.Print("Resources loaded")
 }
-

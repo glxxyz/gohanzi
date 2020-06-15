@@ -26,9 +26,9 @@ func HomophonesHandler(response http.ResponseWriter, request *http.Request, star
 		HskOnly:    request.FormValue("hsk") == "yes",
 	}
 	funcs := template.FuncMap{
-		"homophonesLink": homophonesLink(params),
-		"dictionaryLink" : dictionaryLink,
-		"pinyinSearchLink" : pinyinSearchLink(params),
+		"homophonesLink":   homophonesLink(params),
+		"dictionaryLink":   dictionaryLink,
+		"pinyinSearchLink": pinyinSearchLink(params),
 	}
 	params.Homophones = repo.BuildHomophones(params.NumChars, params.MatchTones, params.HskOnly)
 	if err := executeTemplate(response, start, "homophones.gohtml", params, funcs); err != nil {
@@ -98,4 +98,3 @@ func pinyinSearchLink(params HomophonesParams) func(pinyin string) string {
 		return request.URL.String()
 	}
 }
-

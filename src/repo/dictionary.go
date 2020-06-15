@@ -31,11 +31,10 @@ func addOrUpdateEntry(simplified string, traditional string, pinyin string, defi
 	return entry
 }
 
-func findEntry(simplified string, pinyin string,) *containers.Entry {
-	entries, found := HanziIndex[simplified]
-	if found {
+func findEntry(simplified string, pinyin string, ) *containers.Entry {
+	if entries, found := HanziIndex[simplified]; found {
 		for testEntry, _ := range entries {
-			if pinyin == testEntry.Pinyin {
+			if pinyin == "" || pinyin == testEntry.Pinyin {
 				return testEntry
 			}
 		}
@@ -46,8 +45,8 @@ func findEntry(simplified string, pinyin string,) *containers.Entry {
 func createEntry(entry *containers.Entry, simplified string, pinyin string, isWord bool) *containers.Entry {
 	entry = &containers.Entry{
 		Simplified: simplified,
-		Pinyin: pinyin,
-		IsWord: isWord,
+		Pinyin:     pinyin,
+		IsWord:     isWord,
 	}
 	HanziIndex.Add(simplified, entry)
 	for _, char := range simplified {
@@ -131,7 +130,7 @@ func parseCcCeDict(dataDir string) {
 		traditional := matches[0][1]
 		simplified := matches[0][2]
 		pinyinNum := matches[0][3]
-		definition:= matches[0][4]
+		definition := matches[0][4]
 		definition = strings.Replace(definition, "/", "\n", -1)
 
 		simplifiedChars := []rune(simplified)
@@ -161,7 +160,7 @@ func validateEntry(simplified string, traditional string, syllables []string, pi
 	simplifiedCount := utf8.RuneCountInString(simplified)
 	traditionalCount := utf8.RuneCountInString(traditional)
 	syllablesCount := len(syllables)
-	if simplifiedCount != traditionalCount || traditionalCount != syllablesCount {
+	if simplifiedCount != traditionalCount || syllablesCount>0 && traditionalCount != syllablesCount {
 		log.Panicf(
 			"Character/pinyin counts do not agree for entry: Simplified(%v: [%v]), Traditional(%v: [%v]), or Pinyin(%v: [%v] from [%v])",
 			simplifiedCount,

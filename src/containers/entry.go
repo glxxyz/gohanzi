@@ -1,15 +1,15 @@
 package containers
 
 type Entry struct {
-	Simplified          string
-	Traditional         string
-	Pinyin              string // tone numbers, spaces, v for u-umlaut e.g. "lv3 hao3 ba"
-	Definition          string
-	ShortDefinition     string
-	Radical             rune
-	IsWord              bool
-	hskWordLevel        map[HskVersion]HskLevel
-	hskCharLevel        map[HskVersion]HskLevel
+	Simplified      string
+	Traditional     string
+	Pinyin          string // tone numbers, spaces, v for u-umlaut e.g. "lv3 hao3 ba"
+	Definition      string
+	ShortDefinition string
+	Radical         rune
+	IsWord          bool
+	hskWordLevel    map[HskVersion]HskLevel
+	hskCharLevel    map[HskVersion]HskLevel
 }
 
 type HskVersion int8

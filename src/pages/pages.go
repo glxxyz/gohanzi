@@ -1,6 +1,7 @@
 package pages
 
 import (
+	"github.com/glxxyz/gohanzi/containers"
 	"github.com/glxxyz/gohanzi/repo"
 	"html/template"
 	"log"
@@ -49,6 +50,33 @@ func formValueInt8(request *http.Request, key string, defaultValue int8) int8 {
 		panic(err)
 	}
 	return int8(parsed)
+}
+
+func formValueHskVersion(request *http.Request, key string, defaultValue containers.HskVersion) containers.HskVersion {
+	value := request.FormValue(key)
+	if value == "" {
+		return defaultValue
+	}
+	parsed, err := strconv.Atoi(value)
+	if err != nil {
+		panic(err)
+	}
+	hskVersion := containers.HskVersion(parsed)
+	switch hskVersion {
+	case repo.HskNone, repo.Hsk1992, repo.Hsk2010, repo.Hsk2012, repo.Hsk2020:
+		// pass
+	default:
+		log.Panicf("Unknown HSK Version: %v", hskVersion)
+	}
+	return hskVersion
+}
+
+func formValueString(request *http.Request, key string, defaultValue string) string {
+	value := request.FormValue(key)
+	if value == "" {
+		return defaultValue
+	}
+	return value
 }
 
 func dictionaryLink(hanzi string) string {

@@ -13,6 +13,7 @@ import (
 var HskWords = map[containers.HskVersion]map[containers.HskLevel]containers.StringEntryMap{}
 var HskChars = map[containers.HskVersion]map[containers.HskLevel]containers.CharEntryMap{}
 
+const HskNone containers.HskVersion = 0
 const Hsk1992 containers.HskVersion = 92
 const Hsk2010 containers.HskVersion = 10
 const Hsk2012 containers.HskVersion = 12
@@ -94,6 +95,9 @@ func extractHsk2020(fields []string) (containers.HskLevel, string, string, strin
 		hskLevel = 3
 	case "extra":
 		hskLevel = 4
+	case "level":
+		// skip the first line
+		hskLevel = 0
 	default:
 		log.Panicf("Unknown HSK 2020 level: %v", fields[1])
 	}
@@ -142,7 +146,9 @@ func parseHskFile(
 			each[0] = strings.Replace(each[0], "\uFEFF", "", -1)
 		}
 		hskLevel, simplified, traditional, pinyinNum, definition := processFields(each)
-		processHskEntry(hskWords, hskChars, version, hskLevel, simplified, traditional, pinyinNum, definition)
+		if hskLevel != 0 {
+			processHskEntry(hskWords, hskChars, version, hskLevel, simplified, traditional, pinyinNum, definition)
+		}
 	}
 }
 

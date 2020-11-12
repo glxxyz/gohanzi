@@ -2,6 +2,7 @@ package pages
 
 import (
 	"fmt"
+	"github.com/glxxyz/gohanzi/containers"
 	"github.com/glxxyz/gohanzi/repo"
 	"html/template"
 	"net/http"
@@ -14,7 +15,7 @@ type HomophonesParams struct {
 	Expand     bool
 	NumChars   int8
 	MatchTones bool
-	HskOnly    bool
+	HskVersion int
 	Homophones []repo.Homophone
 }
 
@@ -23,24 +24,39 @@ func HomophonesHandler(response http.ResponseWriter, request *http.Request, star
 		Expand:     request.FormValue("Expand") == "yes",
 		NumChars:   formValueInt8(request, "chars", 2),
 		MatchTones: request.FormValue("tones") == "yes",
-		HskOnly:    request.FormValue("hsk") == "yes",
+		HskVersion: formValueInt(request,"hskVersion", 0),
 	}
 	funcs := template.FuncMap{
 		"homophonesLink":   homophonesLink(params),
 		"dictionaryLink":   dictionaryLink,
 		"pinyinSearchLink": pinyinSearchLink(params),
 	}
-	params.Homophones = repo.BuildHomophones(params.NumChars, params.MatchTones, params.HskOnly)
+	hskVersion := parseHskVersion(params.HskVersion)
+	params.Homophones = repo.BuildHomophones(params.NumChars, params.MatchTones, hskVersion)
 	if err := executeTemplate(response, start, "homophones.gohtml", params, funcs); err != nil {
 		panic(err)
 	}
+}
+
+func parseHskVersion(version int) containers.HskVersion {
+	switch version {
+	case 1992:
+		return repo.Hsk1992
+	case 2010:
+		return repo.Hsk2010
+	case 2012:
+		return repo.Hsk2012
+	case 2020:
+		return repo.Hsk2020
+	}
+	return repo.HskNone;
 }
 
 func homophonesLink(params HomophonesParams) func(change string) string {
 	return func(change string) string {
 		expand := params.Expand
 		numChars := params.NumChars
-		hskOnly := params.HskOnly
+		hskVersion := params.HskVersion
 		matchTones := params.MatchTones
 		switch change {
 		case "1", "2", "3", "4", "5", "6", "7", "8", "9":
@@ -50,8 +66,16 @@ func homophonesLink(params HomophonesParams) func(change string) string {
 			expand = !expand
 		case "invertTones":
 			matchTones = !matchTones
-		case "invertHsk":
-			hskOnly = !hskOnly
+		case "allWords":
+			hskVersion = 0
+		case "hsk1992":
+			hskVersion = 1992
+		case "hsk2010":
+			hskVersion = 2010
+		case "hsk2012":
+			hskVersion = 2012
+		case "hsk2020":
+			hskVersion = 2020
 		}
 		request, err := http.NewRequest("GET", "/homophones", nil)
 		if err != nil {
@@ -65,9 +89,7 @@ func homophonesLink(params HomophonesParams) func(change string) string {
 		if matchTones {
 			query.Add("tones", "yes")
 		}
-		if hskOnly {
-			query.Add("hsk", "yes")
-		}
+		query.Add("hskVersion", fmt.Sprintf("%v", hskVersion))
 		request.URL.RawQuery = query.Encode()
 		return request.URL.String()
 	}
@@ -86,13 +108,8 @@ func pinyinSearchLink(params HomophonesParams) func(pinyin string) string {
 		} else {
 			query.Add("pinyin", strings.Replace(pinyin, " ", "\\d?", -1))
 		}
-		if params.HskOnly {
-			query.Add("hsk1", "t")
-			query.Add("hsk2", "t")
-			query.Add("hsk3", "t")
-			query.Add("hsk4", "t")
-			query.Add("hsk5", "t")
-			query.Add("hsk6", "t")
+		if params.HskVersion != 0 {
+			query.Add("hskVersion", string(params.HskVersion))
 		}
 		request.URL.RawQuery = query.Encode()
 		return request.URL.String()

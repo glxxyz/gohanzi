@@ -2,6 +2,14 @@ package containers
 
 type EntrySet map[*Entry]nothing
 
+func EntrySetOf(values ...*Entry) EntrySet {
+	setOf := EntrySet{}
+	for _, v := range values {
+		setOf.Add(v)
+	}
+	return setOf
+}
+
 func (set EntrySet) Add(value *Entry) {
 	set[value] = exists
 }

@@ -2,6 +2,14 @@ package containers
 
 type StringSet map[string]nothing
 
+func StringSetOf(values ...string) StringSet {
+	setOf := StringSet{}
+	for _, v := range values {
+		setOf.Add(v)
+	}
+	return setOf
+}
+
 func (set StringSet) Add(value string) {
 	set[value] = exists
 }

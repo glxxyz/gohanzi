@@ -2,6 +2,14 @@ package containers
 
 type CharSet map[rune]nothing
 
+func CharSetOf(values ...rune) CharSet {
+	setOf := CharSet{}
+	for _, v := range values {
+		setOf.Add(v)
+	}
+	return setOf
+}
+
 func (set CharSet) Add(value rune) {
 	set[value] = exists
 }

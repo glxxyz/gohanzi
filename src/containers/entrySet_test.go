@@ -23,14 +23,14 @@ func TestEntrySet_Difference(t *testing.T) {
 	AB := containers.EntrySetOf(EntryA, EntryB)
 	BC := containers.EntrySetOf(EntryB, EntryC)
 	result := AB.Difference(BC)
-	equals(t, containers.EntrySetOf(EntryA), result)
+	assertEquals(t, containers.EntrySetOf(EntryA), result)
 }
 
 func TestEntrySet_Intersection(t *testing.T) {
 	AB := containers.EntrySetOf(EntryA, EntryB)
 	BC := containers.EntrySetOf(EntryB, EntryC)
 	result := AB.Intersection(BC)
-	equals(t, containers.EntrySetOf(EntryB), result)
+	assertEquals(t, containers.EntrySetOf(EntryB), result)
 }
 
 func TestEntrySet_SubSetOf(t *testing.T) {
@@ -47,15 +47,15 @@ func TestEntrySet_Union(t *testing.T) {
 	AB := containers.EntrySetOf(EntryA, EntryB)
 	BC := containers.EntrySetOf(EntryB, EntryC)
 	result := AB.Union(BC)
-	equals(t, containers.EntrySetOf(EntryA, EntryB), AB)
-	equals(t, containers.EntrySetOf(EntryB, EntryC), BC)
-	equals(t, containers.EntrySetOf(EntryA, EntryB, EntryC), result)
+	assertEquals(t, containers.EntrySetOf(EntryA, EntryB), AB)
+	assertEquals(t, containers.EntrySetOf(EntryB, EntryC), BC)
+	assertEquals(t, containers.EntrySetOf(EntryA, EntryB, EntryC), result)
 }
 
 func TestEntrySet_AddAll(t *testing.T) {
 	sut := containers.EntrySetOf(EntryA, EntryB)
 	BC := containers.EntrySetOf(EntryB, EntryC)
 	sut.AddAll(BC)
-	equals(t, containers.EntrySetOf(EntryA, EntryB, EntryC), sut)
-	equals(t, containers.EntrySetOf(EntryB, EntryC), BC)
+	assertEquals(t, containers.EntrySetOf(EntryA, EntryB, EntryC), sut)
+	assertEquals(t, containers.EntrySetOf(EntryB, EntryC), BC)
 }

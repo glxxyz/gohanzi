@@ -18,14 +18,14 @@ func TestCharSet_Difference(t *testing.T) {
 	AB := containers.CharSetOf('A', 'B')
 	BC := containers.CharSetOf('B', 'C')
 	result := AB.Difference(BC)
-	equals(t, containers.CharSetOf('A'), result)
+	assertEquals(t, containers.CharSetOf('A'), result)
 }
 
 func TestCharSet_Intersection(t *testing.T) {
 	AB := containers.CharSetOf('A', 'B')
 	BC := containers.CharSetOf('B', 'C')
 	result := AB.Intersection(BC)
-	equals(t, containers.CharSetOf('B'), result)
+	assertEquals(t, containers.CharSetOf('B'), result)
 }
 
 func TestCharSet_SubSetOf(t *testing.T) {
@@ -42,15 +42,15 @@ func TestCharSet_Union(t *testing.T) {
 	AB := containers.CharSetOf('A', 'B')
 	BC := containers.CharSetOf('B', 'C')
 	result := AB.Union(BC)
-	equals(t, containers.CharSetOf('A', 'B'), AB)
-	equals(t, containers.CharSetOf('B', 'C'), BC)
-	equals(t, containers.CharSetOf('A', 'B', 'C'), result)
+	assertEquals(t, containers.CharSetOf('A', 'B'), AB)
+	assertEquals(t, containers.CharSetOf('B', 'C'), BC)
+	assertEquals(t, containers.CharSetOf('A', 'B', 'C'), result)
 }
 
 func TestCharSet_AddAll(t *testing.T) {
 	sut := containers.CharSetOf('A', 'B')
 	BC := containers.CharSetOf('B', 'C')
 	sut.AddAll(BC)
-	equals(t, containers.CharSetOf('A', 'B', 'C'), sut)
-	equals(t, containers.CharSetOf('B', 'C'), BC)
+	assertEquals(t, containers.CharSetOf('A', 'B', 'C'), sut)
+	assertEquals(t, containers.CharSetOf('B', 'C'), BC)
 }

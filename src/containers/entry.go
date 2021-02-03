@@ -8,6 +8,8 @@ type Entry struct {
 	ShortDefinition string
 	Radical         rune
 	IsWord          bool
+	CharFrequency	int
+	WordFrequency	int
 	hskWordLevel    map[HskVersion]HskLevel
 	hskCharLevel    map[HskVersion]HskLevel
 }

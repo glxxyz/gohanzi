@@ -26,7 +26,7 @@ func TestCharEntryMap_Difference(t *testing.T) {
 	result := AB.Difference(BC)
 	expected := containers.CharEntryMap{}
 	expected['A'] = EntryA
-	equals(t, expected, result)
+	assertEquals(t, expected, result)
 }
 
 func TestCharEntryMap_Intersection(t *testing.T) {
@@ -39,7 +39,7 @@ func TestCharEntryMap_Intersection(t *testing.T) {
 	result := AB.Intersection(BC)
 	expected := containers.CharEntryMap{}
 	expected['B'] = EntryB
-	equals(t, expected, result)
+	assertEquals(t, expected, result)
 }
 
 func TestCharEntryMap_SubSetOf(t *testing.T) {
@@ -68,13 +68,13 @@ func TestCharEntryMap_Union(t *testing.T) {
 	BC['B'] = EntryB
 	BC['C'] = EntryC
 	result := AB.Union(BC)
-	equals(t, 2, len(AB))
-	equals(t, 2, len(BC))
+	assertEquals(t, 2, len(AB))
+	assertEquals(t, 2, len(BC))
 	expected := containers.CharEntryMap{}
 	expected['A'] = EntryA
 	expected['B'] = EntryB
 	expected['C'] = EntryC
-	equals(t, expected, result)
+	assertEquals(t, expected, result)
 }
 
 func TestCharEntryMap_AddAll(t *testing.T) {
@@ -89,6 +89,6 @@ func TestCharEntryMap_AddAll(t *testing.T) {
 	expected['A'] = EntryA
 	expected['B'] = EntryB
 	expected['C'] = EntryC
-	equals(t, expected, sut)
-	equals(t, 2, len(BC))
+	assertEquals(t, expected, sut)
+	assertEquals(t, 2, len(BC))
 }

@@ -18,14 +18,14 @@ func TestStringSet_Difference(t *testing.T) {
 	AB := containers.StringSetOf("A", "B")
 	BC := containers.StringSetOf("B", "C")
 	result := AB.Difference(BC)
-	equals(t, containers.StringSetOf("A"), result)
+	assertEquals(t, containers.StringSetOf("A"), result)
 }
 
 func TestStringSet_Intersection(t *testing.T) {
 	AB := containers.StringSetOf("A", "B")
 	BC := containers.StringSetOf("B", "C")
 	result := AB.Intersection(BC)
-	equals(t, containers.StringSetOf("B"), result)
+	assertEquals(t, containers.StringSetOf("B"), result)
 }
 
 func TestStringSet_SubSetOf(t *testing.T) {
@@ -42,15 +42,15 @@ func TestStringSet_Union(t *testing.T) {
 	AB := containers.StringSetOf("A", "B")
 	BC := containers.StringSetOf("B", "C")
 	result := AB.Union(BC)
-	equals(t, containers.StringSetOf("A", "B"), AB)
-	equals(t, containers.StringSetOf("B", "C"), BC)
-	equals(t, containers.StringSetOf("A", "B", "C"), result)
+	assertEquals(t, containers.StringSetOf("A", "B"), AB)
+	assertEquals(t, containers.StringSetOf("B", "C"), BC)
+	assertEquals(t, containers.StringSetOf("A", "B", "C"), result)
 }
 
 func TestStringSet_AddAll(t *testing.T) {
 	sut := containers.StringSetOf("A", "B")
 	BC := containers.StringSetOf("B", "C")
 	sut.AddAll(BC)
-	equals(t, containers.StringSetOf("A", "B", "C"), sut)
-	equals(t, containers.StringSetOf("B", "C"), BC)
+	assertEquals(t, containers.StringSetOf("A", "B", "C"), sut)
+	assertEquals(t, containers.StringSetOf("B", "C"), BC)
 }

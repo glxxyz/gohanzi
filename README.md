@@ -9,6 +9,12 @@ Run a test server with, from within gohanzi/ and navigate to http://localhost:80
 go run main.go
 ```
 
+Working endpoints:
+
+* http://localhost:8080/
+* http://localhost:8080/homophones
+* ...
+
 # Tests
 
 

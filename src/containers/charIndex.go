@@ -4,7 +4,7 @@ type CharIndex map[rune]EntrySet
 
 func (index CharIndex) Add(char rune, entry *Entry) {
 	if set, found := index[char]; found {
-		set[entry] = exists
+		set.Add(entry)
 		return
 	}
 	index[char] = EntrySet{entry: exists}
@@ -18,7 +18,7 @@ func (index CharIndex) AddAll(other CharIndex) {
 			index[char] = thisSet
 		}
 		for entry, _ := range set {
-			thisSet[entry] = exists
+			thisSet.Add(entry)
 		}
 	}
 }

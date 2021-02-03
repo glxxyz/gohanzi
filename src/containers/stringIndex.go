@@ -4,7 +4,7 @@ type StringIndex map[string]EntrySet
 
 func (index StringIndex) Add(word string, entry *Entry) {
 	if set, found := index[word]; found {
-		set[entry] = exists
+		set.Add(entry)
 		return
 	}
 	index[word] = EntrySet{entry: exists}
@@ -18,7 +18,7 @@ func (index StringIndex) AddAll(other StringIndex) {
 			index[word] = thisSet
 		}
 		for entry, _ := range set {
-			thisSet[entry] = exists
+			thisSet.Add(entry)
 		}
 	}
 }

@@ -1,5 +1,6 @@
-﻿"Total character count: 46,841,097"
-"Context number: 6,243"
+﻿'Downloaded from http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2880003/'
+'Total character count: 46,841,097'
+'Context number: 6,243'
 Character CHRCount CHR/million logCHR CHR-CD CHR-CD% logCHR-CD
 我	2058980	43956.7	6.3137	6242	99.98	3.7953
 的	1762079	37618.23	6.246	6243	100	3.7954

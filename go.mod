@@ -1,6 +1,6 @@
 module github.com/glxxyz/gohanzi
 
-go 1.15
+go 1.16
 
 replace (
 	github.com/glxxyz/gohanzi/containers v0.0.0 => ./src/containers

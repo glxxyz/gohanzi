@@ -49,7 +49,7 @@ func parseHskVersion(version int) containers.HskVersion {
 	case 2020:
 		return repo.Hsk2020
 	}
-	return repo.HskNone;
+	return repo.HskNone
 }
 
 func homophonesLink(params HomophonesParams) func(change string) string {

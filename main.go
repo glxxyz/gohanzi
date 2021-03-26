@@ -31,7 +31,7 @@ func main() {
 		log.Printf("Defaulting to port %s", port)
 	}
 
-	go repo.EnsureResourcesLoaded()
+	go repo.EnsureResourcesLoaded("src/repo/data/")
 
 	log.Printf("Listening on port %s", port)
 	if err := http.ListenAndServe(":"+port, nil); err != nil {

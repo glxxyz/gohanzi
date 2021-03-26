@@ -26,7 +26,7 @@ var HskVersionToLevels = map[containers.HskVersion]containers.HskLevel{
 	Hsk2020: 9,
 }
 
-func parseHskFiles(dataDir string) {
+func ParseHskFiles(dataDir string) {
 	parseHskVersionFiles(dataDir, Hsk1992, ',', extractHsk1992, "oldhsk.csv")
 	parseHskVersionFiles(dataDir, Hsk2010, ',', extractHsk2010, "New_HSK_2010.csv")
 	processHsk2012(dataDir)

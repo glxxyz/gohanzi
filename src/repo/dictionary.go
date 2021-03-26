@@ -14,7 +14,7 @@ import (
 // A bunch of different ways of indexing the dictionary entries
 var HanziIndex = containers.StringIndex{}
 var CharIndex = containers.CharIndex{}
-var RadicalIndex = containers.CharIndex{}
+var RadicalIndex = containers.CharIndex{} // Index of character entries that use a given radical
 var PinyinIndex = containers.StringIndex{}
 var EnglishIndex = containers.StringIndex{}
 var TonelessPinyinHomophones = map[int8]containers.StringIndex{}
@@ -25,13 +25,13 @@ var ComposesIndex = map[rune]containers.CharSet{}
 func addOrUpdateEntry(simplified string, traditional string, pinyin string, definition string, isWord bool) *containers.Entry {
 	entry := findEntry(simplified, pinyin)
 	if entry == nil {
-		entry = createEntry(entry, simplified, pinyin, isWord)
+		entry = createEntry(simplified, pinyin, isWord)
 	}
 	updateEntry(entry, traditional, definition, isWord)
 	return entry
 }
 
-func findEntry(simplified string, pinyin string, ) *containers.Entry {
+func findEntry(simplified string, pinyin string) *containers.Entry {
 	if entries, found := HanziIndex[simplified]; found {
 		for testEntry, _ := range entries {
 			if pinyin == "" || pinyin == testEntry.Pinyin {
@@ -42,8 +42,8 @@ func findEntry(simplified string, pinyin string, ) *containers.Entry {
 	return nil
 }
 
-func createEntry(entry *containers.Entry, simplified string, pinyin string, isWord bool) *containers.Entry {
-	entry = &containers.Entry{
+func createEntry(simplified string, pinyin string, isWord bool) *containers.Entry {
+	entry := &containers.Entry{
 		Simplified: simplified,
 		Pinyin:     pinyin,
 		IsWord:     isWord,
@@ -110,7 +110,7 @@ func englishWords(english string) (words []string) {
 
 var parseCcCeDictLineRegex = regexp.MustCompile(`^(\S+)\s+(\S+).*?\[(.*?)] /(.*)/$`)
 
-func parseCcCeDict(dataDir string) {
+func ParseCcCeDict(dataDir string) {
 	fileName := path.Join(dataDir, "cedict_ts.u8")
 
 	dictFile, err := os.Open(fileName)

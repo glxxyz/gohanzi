@@ -8,7 +8,7 @@ import (
 var initDone = false
 var initLock sync.Mutex
 
-func EnsureResourcesLoaded() {
+func EnsureResourcesLoaded(dataDir string) {
 	if initDone {
 		return
 	}
@@ -19,18 +19,16 @@ func EnsureResourcesLoaded() {
 
 	if initDone {
 		log.Print("Resources were loaded by another request")
-
+		return
 	}
 
 	log.Print("Loading resources")
-	var dataDir = "data/"
-	parseHskFiles(dataDir)
+	ParseHskFiles(dataDir)
 	// parseMandarinCompanionFiles(dataDir)
-	// parseWordFrequencyFile(dataDir)
-	// parseCharFrequencyFile(dataDir)
-	parseCcCeDict(dataDir)
-	// parseCharacterCompositionFile(dataDir)
-	// initRadical_Data()
+	ParseCcCeDict(dataDir)
+	ParseWordFrequencyFile(dataDir)
+	ParseCharFrequencyFile(dataDir)
+	ParseCharacterCompositionFile(dataDir)
 	initDone = true
 	log.Print("Resources loaded")
 }

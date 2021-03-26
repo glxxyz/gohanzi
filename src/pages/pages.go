@@ -12,7 +12,7 @@ import (
 
 func Handler(handler func(response http.ResponseWriter, request *http.Request, start time.Time)) func(http.ResponseWriter, *http.Request) {
 	return func(response http.ResponseWriter, request *http.Request) {
-		repo.EnsureResourcesLoaded()
+		repo.EnsureResourcesLoaded("src/repo/data/")
 		start := time.Now()
 		log.Printf("Handling request: %v", request.URL.Path)
 		handler(response, request, start)

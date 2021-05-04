@@ -1,4 +1,4 @@
-﻿哎	哎	ai1	āi	hey!; (interjection of surprise or dissatisfaction)
+哎	哎	ai1	āi	hey!; (interjection of surprise or dissatisfaction)
 唉	唉	ai4	ài	(an exclamation indicating resignation); oh well; oh; mm
 爱护	愛護	ai4hu4	àihù	cherish; reassure; take good care of
 爱惜	愛惜	ai4xi1	àixī	cherish; treasure; use sparingly
@@ -105,7 +105,7 @@
 趁	趁	chen4	chèn	avail oneself of; take advantage of (an opportunity or situation)
 称	稱	cheng1	chēng	weigh; to call; be called
 称呼	稱呼	cheng1hu	chēnghu	to call; address as; name
-称赞	稱贊	cheng1zan4	chēngzàn	to praise; to acclaim
+称赞	稱讚	cheng1zan4	chēngzàn	to praise; to acclaim
 成分	成分	cheng2fen4	chéngfèn	ingredient; composition
 成果	成果	cheng2guo3	chéngguǒ	result; achievement; gain
 成就	成就	cheng2jiu4	chéngjiù	accomplishment; achievement; success
